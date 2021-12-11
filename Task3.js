@@ -29,24 +29,24 @@ testlib.on('ready',function(patterns) {
 
 testlib.on('data',function(data) {
 
-    var string ="";
+    
     counter++;
-    if(buffer.length < 5)
-    {
-        buffer.push(data);
-    }
-    if(buffer.length == 5)
-    {
-        buffer.push(data);
-        buffer.shift();
-    }
+   buffer.push(data);
+    var string ="";
+    var tempBuffer = buffer;
 
-    buffer.forEach((item,index,array)=>{
-
-        string = string +item;
+    pattern.forEach((item,index,array)=>{
+        var long = item.length;
+        var comparison = tempBuffer.slice(-long).join("");
+        if(comparison == item)
+        {
+            obj[item]++;
+            console.log("Great success")
+        }
+        
     })
 
-    console.log(string + " counter is ",counter);
+    //console.log(buffer + " counter is ",counter);
 
 });
 
@@ -62,4 +62,4 @@ testlib.on("end",function(){
     testlib.frequencyTable(obj);
 });
 
-testlib.setup(1,0);
+testlib.setup(2,0);
